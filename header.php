@@ -11,7 +11,7 @@
     <header>
         <div class="bandeauVert">
             <nav class="navbar">
-                <h1 class="logo">Boutique php</h1>
+                <h1 class="logo">Boutique Php</h1>
                 <ul class="nav-links">
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="#services">Boutique</a></li>
