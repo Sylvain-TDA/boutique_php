@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Header</title>
 </head>
 
 <body>
@@ -14,8 +13,8 @@
             <nav class="navbar">
                 <h1 class="logo">Boutique php</h1>
                 <ul class="nav-links">
-                    <li><a href="/accueil.html">Accueil</a></li>
-                    <li><a href="#services">Produits</a></li>
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="#services">Boutique</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
