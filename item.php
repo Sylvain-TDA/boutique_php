@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+<link rel="stylesheet" href="style.css">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produit</title>
+    <title>Produits</title>
 </head>
+
 <body>
-    
-<?php
 
-$nom = "Nom" ;
-$prix = 0 ;
-$urlImg = "/images"; 
+    <div>
+        <?php
 
-echo $nom;
-echo $prix;
-echo $urlImg;
-?>
+        $nom = "Chaussons Scarpa Vapor V";
+        $prix = 120;
+        $urlImg = "https://content.backcountry.com/images/items/large/SCR/SCR008R/OCE.jpg";
+
+        echo $nom;
+        echo "\n";
+        echo $prix;
+        echo "\n";
+        ?>
+        <p><br> <img src=<?php echo $urlImg ?> alt="scarpa"></p>
+
+    </div>
 
 </body>
+
 </html>
