@@ -11,6 +11,10 @@ h1 {
     text-align: center;
 }
 
+.hidden {
+    display: none;
+}
+
 .bandeauVert {
     background-color: #1B893C;
     color: rgb(236, 228, 228);

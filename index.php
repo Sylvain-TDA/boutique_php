@@ -13,4 +13,3 @@ echo $buffer;
 echo 'Bienvenue dans mon projet';
 include('footer.php');
 ?>
->>>>>>> master
