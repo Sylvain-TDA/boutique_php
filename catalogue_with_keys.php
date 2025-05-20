@@ -14,7 +14,7 @@ $laSportiva = [
     "name" => "La Sportiva",
     "price" => 14000,
     "weight" => 520,
-    "discount" => 10,
+    "discount" => null,
     "picture_url" => "https://www.bfgcdn.com/1500_1500_90/301-0448-0111/la-sportiva-solution-climbing-shoes.jpg",
 ];
 
@@ -47,6 +47,7 @@ echo $buffer;
         </h3>
         <p>Prix HT : <?php echo formatPrice(priceExcludingVAT(($scarpa["price"]))) ?></p>
         <p>Prix TTC : <?php echo formatPrice($scarpa["price"]) ?></p>
+        <p>Prix remisé : <?php echo formatPrice(discountedPrice($scarpa["price"], $scarpa["discount"])) ?></p>
         <img src="<?php echo $scarpa["picture_url"] ?>" alt="<?php echo $scarpa["name"]; ?>" width="300px">
     </div>
 
@@ -58,6 +59,7 @@ echo $buffer;
         </h3>
         <p>Prix HT : <?php echo formatPrice(priceExcludingVAT($laSportiva["price"])) ?></p>
         <p>Prix TTC : <?php echo formatPrice($laSportiva["price"]) ?></p>
+        <p>Prix remisé : <?php echo formatPrice(discountedPrice($laSportiva["price"], $laSportiva["discount"])) ?></p>
         <img src="<?php echo $laSportiva["picture_url"] ?>" alt="<?php echo $laSportiva["name"]; ?>" width="300px">
     </div>
 
@@ -69,6 +71,7 @@ echo $buffer;
         </h3>
         <p>Prix HT : <?php echo formatPrice(priceExcludingVAT($simond["price"])) ?></p>
         <p>Prix HT : <?php echo formatPrice(($simond["price"])) ?></p>
+        <p>Prix remisé : <?php echo formatPrice(discountedPrice($simond["price"], $simond["discount"])) ?></p>
         <img src="<?php echo $simond["picture_url"] ?>" alt="<?php echo $simond["name"]; ?>" width="300px">
     </div>
 
