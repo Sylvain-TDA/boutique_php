@@ -32,21 +32,56 @@ $products = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogue with keys</title>
+    <title>Multidimensional catalogue</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <?php
 include("header.php");
 ?>
 
-<body>
+<?php
+
+foreach ($products as $element) {
+    echo "<div class='monProduit'>";
+    echo "<h3>";
+    echo $element["name"] . "<br>" . "</h3>";
+    echo "<p>";
+    echo "Prix : " . $element["price"] . "€" . "<br>";
+    echo "</p>";
+    echo "<img src=$element[picture_url] alt=$element[name] width='300px'>";
+    echo "</div>";
+}
+
+?>
+
+<!-- code qui fait pareil que celui au dessus mais un peu plus propre -->
+<!-- ----------------------------------------------------------- -->
+<!-- <?php
+foreach ($products as $element) {
+?>
+    <div class="monProduit">
+    <h3> <?php echo $element["name"] ?> <br>
+        <p> <?php echo $element["price"] ?> € <br> </p>
+    <img src="<?php echo $element['picture_url']?>" alt="<?php echo $element["name"] ?>" width="300px">
+</h3>
+</div>
+
+<?php
+}
+?> -->
+<!-- ----------------------------------------------------------- -->
+
+
+<!-- Première version du code -->
+<!-- ----------------------------------------------------------- -->
+<!-- <body>
     <div class="monProduit">
         <h3>
             <?php
             echo $products["scarpa"]["name"];
             ?>
         </h3>
-        <p><?php echo $products["scarpa"]["price"] ?></p>
+        <p><?php echo $products["scarpa"]["price"] ?> €</p>
         <img src="<?php echo $products["scarpa"]["picture_url"] ?>" alt="<?php echo $products["scarpa"]["name"]; ?>"
             width="300px">
     </div>
@@ -57,7 +92,7 @@ include("header.php");
             echo $products["laSportiva"]["name"];
             ?>
         </h3>
-        <p><?php echo $products["laSportiva"]["price"] ?></p>
+        <p><?php echo $products["laSportiva"]["price"] ?> €</p>
         <img src="<?php echo $products["laSportiva"]["picture_url"] ?>"
             alt="<?php echo $products["laSportiva"]["name"]; ?>" width="300px">
 
@@ -68,7 +103,7 @@ include("header.php");
             echo $products["simond"]["name"];
             ?>
         </h3>
-        <p><?php echo $products["simond"]["price"] ?></p>
+        <p><?php echo $products["simond"]["price"] ?> €</p>
         <img src="<?php echo $products["simond"]["picture_url"] ?>" alt="<?php echo $products["simond"]["name"]; ?>"
             width="300px">
     </div>
@@ -76,7 +111,7 @@ include("header.php");
     <?php
     include("footer.php");
     ?>
+<!-- ----------------------------------------------------------- -->
 
 </body>
-
 </html>

@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue with keys</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
 <?php
 
 $scarpa = [
@@ -26,46 +37,45 @@ $simond = [
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogue with keys</title>
-</head>
+<?php
+include("header.php");
+?>
 
 <body>
-    <div>
+    <div class='monProduit'>
         <h3>
             <?php
             echo $scarpa["name"];
             ?>
         </h3>
-        <p><?php echo $scarpa["price"] ?></p>
-        <img src="<?php echo $scarpa["picture_url"] ?>" alt="<?php echo $scarpa["name"]; ?>">
+        <p><?php echo "Prix : " . $scarpa["price"] . " €" ?></p>
+        <img src="<?php echo $scarpa["picture_url"] ?>" alt="<?php echo $scarpa["name"]; ?>"  width="300px">
     </div>
 
-        <div>
+        <div class='monProduit'>
         <h3>
             <?php
             echo $laSportiva["name"];
             ?>
         </h3>
-        <p><?php echo $laSportiva["price"] ?></p>
-        <img src="<?php echo $laSportiva["picture_url"] ?>" alt="<?php echo $laSportiva["name"]; ?>">
-    
+        <p><?php echo "Prix : " . $laSportiva["price"]. " €" ?></p>
+        <img src="<?php echo $laSportiva["picture_url"] ?>" alt="<?php echo $laSportiva["name"]; ?>"  width="300px">
     </div>
-        <div>
+
+        <div class='monProduit'>
         <h3>
             <?php
             echo $simond["name"];
             ?>
         </h3>
-        <p><?php echo $simond["price"] ?></p>
-        <img src="<?php echo $simond["picture_url"] ?>" alt="<?php echo $simond["name"]; ?>">
+        <p><?php echo "Prix : " . $simond["price"] . " €"?></p>
+        <img src="<?php echo $simond["picture_url"] ?>" alt="<?php echo $simond["name"]; ?>"  width="300px">
     </div>
 
 </body>
+
+ <?php
+    include("footer.php");
+    ?>
 
 </html>
