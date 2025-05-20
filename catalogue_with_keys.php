@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogue with keys</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-
 <?php
 
 $scarpa = [
@@ -38,7 +27,13 @@ $simond = [
 ?>
 
 <?php
-include("header.php");
+ob_start();
+    include("header.php");
+    $buffer=ob_get_contents();
+    ob_end_clean();
+
+    $buffer=str_replace("%TITLE%","Catalogue with keys",$buffer);
+    echo $buffer;
 ?>
 
 <body>
@@ -48,7 +43,7 @@ include("header.php");
             echo $scarpa["name"];
             ?>
         </h3>
-        <p><?php echo "Prix : " . $scarpa["price"] . " €" ?></p>
+        <p><?php echo "Prix : " . $scarpa["price"] . "€" ?></p>
         <img src="<?php echo $scarpa["picture_url"] ?>" alt="<?php echo $scarpa["name"]; ?>"  width="300px">
     </div>
 
@@ -58,7 +53,7 @@ include("header.php");
             echo $laSportiva["name"];
             ?>
         </h3>
-        <p><?php echo "Prix : " . $laSportiva["price"]. " €" ?></p>
+        <p><?php echo "Prix : " . $laSportiva["price"]. "€" ?></p>
         <img src="<?php echo $laSportiva["picture_url"] ?>" alt="<?php echo $laSportiva["name"]; ?>"  width="300px">
     </div>
 
@@ -68,7 +63,7 @@ include("header.php");
             echo $simond["name"];
             ?>
         </h3>
-        <p><?php echo "Prix : " . $simond["price"] . " €"?></p>
+        <p><?php echo "Prix : " . $simond["price"] . "€"?></p>
         <img src="<?php echo $simond["picture_url"] ?>" alt="<?php echo $simond["name"]; ?>"  width="300px">
     </div>
 

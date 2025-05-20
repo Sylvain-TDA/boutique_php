@@ -25,18 +25,14 @@ $products = [
 ];
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multidimensional catalogue</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 <?php
-include("header.php");
+ob_start();
+    include("header.php");
+    $buffer=ob_get_contents();
+    ob_end_clean();
+
+    $buffer=str_replace("%TITLE%","Multidimensional catalogue",$buffer);
+    echo $buffer;
 ?>
 
 <?php
@@ -52,17 +48,27 @@ foreach ($products as $element) {
     echo "</div>";
 }
 
+include ("footer.php");
 ?>
+</body>
+
+</html>
+
+
+
+
+
+
 
 <!-- code qui fait pareil que celui au dessus mais un peu plus propre -->
 <!-- ----------------------------------------------------------- -->
 <!-- <?php
 foreach ($products as $element) {
-?>
+    ?>
     <div class="monProduit">
-    <h3> <?php echo $element["name"] ?> <br>
+        <h3> <?php echo $element["name"] ?> <br>
         <p> <?php echo $element["price"] ?> € <br> </p>
-    <img src="<?php echo $element['picture_url']?>" alt="<?php echo $element["name"] ?>" width="300px">
+    <img src="<?php echo $element['picture_url'] ?>" alt="<?php echo $element["name"] ?>" width="300px">
 </h3>
 </div>
 
@@ -110,8 +116,5 @@ foreach ($products as $element) {
 
     <?php
     include("footer.php");
-    ?>
+    ?> -->
 <!-- ----------------------------------------------------------- -->
-
-</body>
-</html>

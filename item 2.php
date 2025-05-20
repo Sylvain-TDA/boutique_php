@@ -1,12 +1,12 @@
+<?php
+$nom = "Chaussons La Sportiva Katana";
+$prix = 140;
+$urlImg = "https://www.bfgcdn.com/1500_1500_90/301-0448-0111/la-sportiva-solution-climbing-shoes.jpg";
+?>
 
 <body>
 
     <div class="monProduit">
-        <?php
-        $nom = "Chaussons La Sportiva Katana";
-        $prix = 140;
-        $urlImg = "https://www.bfgcdn.com/1500_1500_90/301-0448-0111/la-sportiva-solution-climbing-shoes.jpg";
-        ?>
         <h1> <?php
         echo $nom;
         ?></h1>

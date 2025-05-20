@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-</head>
 
-<?php 
+ob_start();
+include("header.php");
+$buffer = ob_get_contents();
+ob_end_clean();
 
-include ('header.php');
-echo 'Bienvenue dans mon projet'; 
-include ('footer.php');
+$buffer = str_replace("%TITLE%", "Index", $buffer);
+echo $buffer;
+
+echo 'Bienvenue dans mon projet';
+include('footer.php');
 ?>

@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-</head>
-
 <?php
+$monTitre = "Page Scarpa";
+$maDescription = "Voici la page de $monTitre";
 
-$monTitre = "Page Scarpa" ;
-$maDescription = "Voici la page de $monTitre" ;
+ob_start();
+include("header.php");
+$buffer = ob_get_contents();
+ob_end_clean();
 
-include "header.php";
+$buffer = str_replace("%TITLE%", "Page produit", $buffer);
+echo $buffer;
 
 include "item.php";
 
-include "item 2.php";
-
-include "item 3.php";
-
 include "footer.php";
-
 ?>

@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple catalog</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-
 <?php
-include ("header.php");
+ob_start();
+    include("header.php");
+    $buffer=ob_get_contents();
+    ob_end_clean();
+
+    $buffer=str_replace("%TITLE%","Simple catalogue",$buffer);
+    echo $buffer;
 ?>
+
+<!-- <?php
+include ("header.php");
+?> -->
 
 <?php
 $products = ["Scarpa", "La sportiva", "Simond"];
