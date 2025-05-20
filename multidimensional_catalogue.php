@@ -1,23 +1,25 @@
 <?php
 
+include ("my_functions.php");
+
 $products = [
     "scarpa" => [
         "name" => "Scarpa",
-        "price" => 120,
+        "price" => 12000,
         "weight" => 550,
         "discount" => 10,
         "picture_url" => "https://content.backcountry.com/images/items/large/SCR/SCR008R/OCE.jpg",
     ],
     "laSportiva" => [
         "name" => "La Sportiva",
-        "price" => 140,
+        "price" => 14000,
         "weight" => 520,
         "discount" => null,
         "picture_url" => "https://www.bfgcdn.com/1500_1500_90/301-0448-0111/la-sportiva-solution-climbing-shoes.jpg",
     ],
     "simond" => [
         "name" => "Simond",
-        "price" => 65,
+        "price" => 6500,
         "weight" => 620,
         "discount" => 10,
         "picture_url" => "https://contents.mediadecathlon.com/p2402441/k$65ce62945e874c670bc44dea54bd96fb/sq/chausson-descalade-vertika-soft-homme-bleuocre.jpg?format=auto&f=800x0",
@@ -35,7 +37,7 @@ ob_start();
     echo $buffer;
 ?>
 
-<?php
+<!-- <?php
 
 foreach ($products as $element) {
     echo "<div class='monProduit'>";
@@ -49,7 +51,7 @@ foreach ($products as $element) {
 }
 
 include ("footer.php");
-?>
+?> -->
 </body>
 
 </html>
@@ -62,19 +64,19 @@ include ("footer.php");
 
 <!-- code qui fait pareil que celui au dessus mais un peu plus propre -->
 <!-- ----------------------------------------------------------- -->
-<!-- <?php
+<?php
 foreach ($products as $element) {
     ?>
     <div class="monProduit">
-        <h3> <?php echo $element["name"] ?> <br>
-        <p> <?php echo $element["price"] ?> € <br> </p>
+        <h3> <?php echo $element["name"] ?> <br> </h3>
+        <p> Prix HT : <?php echo formatPrice(priceExcludingVAT($element["price"])) ?> <br> </p>
+        <p> Prix TTC : <?php echo formatPrice($element["price"]) ?> <br> </p>
     <img src="<?php echo $element['picture_url'] ?>" alt="<?php echo $element["name"] ?>" width="300px">
-</h3>
 </div>
 
 <?php
 }
-?> -->
+?>
 <!-- ----------------------------------------------------------- -->
 
 

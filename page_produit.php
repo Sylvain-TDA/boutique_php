@@ -1,4 +1,7 @@
 <?php
+
+// include ("my_functions.php");
+
 $monTitre = "Page Scarpa";
 $maDescription = "Voici la page de $monTitre";
 
