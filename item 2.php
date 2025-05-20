@@ -1,11 +1,11 @@
 
 <body>
-<div class="objectCenter">
+
     <div class="monProduit">
         <?php
-        $nom = "Chaussons Scarpa Vapor V";
-        $prix = 120;
-        $urlImg = "https://content.backcountry.com/images/items/large/SCR/SCR008R/OCE.jpg";
+        $nom = "Chaussons La Sportiva Katana";
+        $prix = 140;
+        $urlImg = "https://www.bfgcdn.com/1500_1500_90/301-0448-0111/la-sportiva-solution-climbing-shoes.jpg";
         ?>
         <h1> <?php
         echo $nom;
@@ -16,11 +16,11 @@
             echo "\n";
             ?>
         </p>
-        <p><br> <img src=<?php echo $urlImg ?> alt="scarpa" width="300px"></p>
+        <p><br> <img src=<?php echo $urlImg ?> alt="La sportiva" width="300px"></p>
         <?php
         ?>
     </div>
-</div>
+
 </body>
 
 </html>
