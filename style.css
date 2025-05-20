@@ -1,0 +1,108 @@
+*HEADER*/ 
+
+header {
+    color: rgb(236, 228, 228);
+    padding: 15px 0;
+    text-align: center;
+}
+
+h1 {
+    color: #1B893C;
+    text-align: center;
+}
+
+.bandeauVert {
+    background-color: #1B893C;
+    color: rgb(236, 228, 228);
+}
+
+.monProduit {
+    border: solid;
+    border-radius: 4px;
+    box-shadow: 8px 8px 2px 1px #1B893C;
+    margin: 2em 10em 2em 10em;
+    padding: 1em;
+    text-align: center;
+    width:450px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-links {
+    list-style: none;
+    /* Supprime les puces */
+    display: flex;
+    gap: 20px;
+    /* Espace entre chaque élément */
+}
+
+.nav-links li {
+    padding: 10px 20px;
+    /* 10px en haut/bas, 20px à gauche/droite */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgb(236, 228, 228);
+}
+
+.nav-links a:hover {
+    color: rgb(2, 192, 34);
+}
+
+@media (max-width: 768px) {
+    details .navbar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    details .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+.objectCenter {
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.breadcrumb {
+    list-style: none;
+    padding: 0;
+    margin: 15px;
+    background: rgb(0, 0, 0);
+    display: flex;
+}
+
+.breadcrumb-item {
+    display: inline-block;
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    content: "›";
+    margin: 0 10px;
+    color: #6c757d;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
