@@ -12,7 +12,7 @@ $products = [
         "name" => "La Sportiva",
         "price" => 140,
         "weight" => 520,
-        "discount" => 10,
+        "discount" => null,
         "picture_url" => "https://www.bfgcdn.com/1500_1500_90/301-0448-0111/la-sportiva-solution-climbing-shoes.jpg",
     ],
     "simond" => [
@@ -25,6 +25,7 @@ $products = [
 ];
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,38 +33,49 @@ $products = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogue with keys</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+<?php
+include("header.php");
+?>
 
 <body>
-    <div>
+    <div class="monProduit">
         <h3>
             <?php
             echo $products["scarpa"]["name"];
             ?>
         </h3>
         <p><?php echo $products["scarpa"]["price"] ?></p>
-        <img src="<?php echo $products["scarpa"]["picture_url"] ?>" alt="<?php echo $products["scarpa"]["name"]; ?>">
+        <img src="<?php echo $products["scarpa"]["picture_url"] ?>" alt="<?php echo $products["scarpa"]["name"]; ?>"
+            width="300px">
     </div>
 
-    <div>
+    <div class="monProduit">
         <h3>
             <?php
             echo $products["laSportiva"]["name"];
             ?>
         </h3>
         <p><?php echo $products["laSportiva"]["price"] ?></p>
-        <img src="<?php echo $products["laSportiva"]["picture_url"] ?>" alt="<?php echo $products["laSportiva"]["name"]; ?>">
+        <img src="<?php echo $products["laSportiva"]["picture_url"] ?>"
+            alt="<?php echo $products["laSportiva"]["name"]; ?>" width="300px">
 
     </div>
-    <div>
+    <div class="monProduit">
         <h3>
             <?php
             echo $products["simond"]["name"];
             ?>
         </h3>
         <p><?php echo $products["simond"]["price"] ?></p>
-        <img src="<?php echo $products["simond"]["picture_url"] ?>" alt="<?php echo $products["simond"]["name"]; ?>">
+        <img src="<?php echo $products["simond"]["picture_url"] ?>" alt="<?php echo $products["simond"]["name"]; ?>"
+            width="300px">
     </div>
+
+    <?php
+    include("footer.php");
+    ?>
 
 </body>
 
