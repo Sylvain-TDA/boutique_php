@@ -31,14 +31,24 @@ function sum($price, $quantity)
     return $sum;
 }
 
-function shippingCost($weight, $sum)
+function shippingCost($carrier, $weight, $sum)
 {
-    if ($weight >= 0 && $weight < 500) {
-        return (int) 5;
-    } elseif ($weight >= 500 && $weight <= 2000) {
-        return (int) $sum * 0.1;
+    if ($carrier = 1) {
+        if ($weight >= 0 && $weight < 500) {
+            return (int) 5;
+        } elseif ($weight >= 500 && $weight <= 2000) {
+            return (int) $sum * 0.1;
+        } else {
+            return (int) 0;
+        }
     } else {
-        return (int)0;
+   if ($weight >= 0 && $weight < 400) {
+            return (int) 3;
+        } elseif ($weight >= 500 && $weight <= 2500) {
+            return (int) $sum * 0.12;
+        } else {
+            return (int) 0;
+        }
     }
 }
 

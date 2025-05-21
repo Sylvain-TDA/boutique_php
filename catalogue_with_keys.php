@@ -13,7 +13,7 @@ $scarpa = [
 $laSportiva = [
     "name" => "La Sportiva",
     "price" => 14000,
-    "weight" => 520,
+    "weight" => 380,
     "discount" => null,
     "picture_url" => "https://www.bfgcdn.com/1500_1500_90/301-0448-0111/la-sportiva-solution-climbing-shoes.jpg",
 ];

@@ -41,7 +41,7 @@ $sumWeight = 0;
                     </p>
                     <p>Total TVA:
                         <?php
-                        $TVA = ($montantHT * 0.2) / 100;
+                        $TVA = round(($montantHT * 0.2) / 100,2);
                         echo $TVA . "€";
                         ?>
                     </p>
@@ -67,8 +67,18 @@ $sumWeight = 0;
 
     </div>
     <div class="monTotal">
+        <form method="POST">
+            <label for="transporteur">Choisissez un transporteur :</label>
+            <select id="transporteur" name="transporteur" onchange="this.form.submit()">
+                <option value="1">DHL</option>
+                <option value="2">UPS</option>
+            </select>
+            </p>
+        </form>
         <p>Frais de port : <?php
-        echo shippingCost($sumWeight, $somme / 100) ?></p>
+          if (isset($_POST["transporteur"])) {
+        echo shippingCost($_POST["transporteur"], $sumWeight, $somme / 100);
+        }; ?></p>
         <p>Total général :
             <?php
             echo formatPrice($somme);
