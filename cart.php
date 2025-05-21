@@ -17,6 +17,7 @@ echo $buffer;
 include "my_functions.php";
 $products = ["Scarpa", "LaSportiva", "Simond"];
 $somme = 0;
+$sumWeight = 0;
 ?>
 
 
@@ -50,18 +51,29 @@ $somme = 0;
                         echo formatPrice($montantTTC);
                         ?>
                     </p>
+                    <p>Poids :
+                        <?php
+                        $poids = $_GET["weight$x"] * $_GET["quantity$x"];
+                        echo $_GET["weight$x"];
+                        ?> gr
+                    </p>
                 </div>
                 <?php
                 $somme += $montantTTC;
+                $sumWeight += $poids;
             }
         }
         ?>
 
     </div>
-    <div class="monTotal">Total général :
-        <?php
-        echo formatPrice($somme);
-        ?>
+    <div class="monTotal">
+        <p>Frais de port : <?php
+        echo shippingCost($sumWeight, $somme / 100) ?></p>
+        <p>Total général :
+            <?php
+            echo formatPrice($somme);
+            ?>
+        </p>
     </div>
 </div>
 

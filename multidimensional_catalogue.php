@@ -69,6 +69,7 @@ foreach ($products as $element) {
             <img src="<?php echo $element['picture_url'] ?>" alt="<?php echo $element["name"] ?>" width="300px">
             <label for="quantity">Quantité</label>
             <input type="hidden" name="nomCommande<?php echo $element["name"] ?>" id="nomCommande" value="<?php echo $element["name"] ?>">
+            <input type="hidden" name="weight<?php echo $element["name"] ?>" id="weight" value="<?php echo $element["weight"] ?>">
             <input type="hidden" name="prixCommande<?php echo $element["name"] ?>" id="prixCommande" value="<?php echo $element["price"] ?>">
             <input type="hidden" name="discountCommande<?php echo $element["name"] ?>" id="discountCommande" value="<?php echo (int)$element["discount"] ?>">
             <input type="hidden" name="urlImg<?php echo $element["name"] ?>" id="urlImg" value="<?php echo $element["picture_url"] ?>">

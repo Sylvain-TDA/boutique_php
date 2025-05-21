@@ -31,4 +31,15 @@ function sum($price, $quantity)
     return $sum;
 }
 
+function shippingCost($weight, $sum)
+{
+    if ($weight >= 0 && $weight < 500) {
+        return (int) 5;
+    } elseif ($weight >= 500 && $weight <= 2000) {
+        return (int) $sum * 0.1;
+    } else {
+        return (int)0;
+    }
+}
+
 ?>
