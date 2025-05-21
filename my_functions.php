@@ -1,7 +1,7 @@
 <?php
 
 function formatPrice($price) {
-    echo (number_format(($price/100), 2, ",", " ")) . "€";
+    echo (number_format($price/100, 2, ",", " ")) . "€";
 } ;
 
 function priceExcludingVAT($price) {

@@ -69,12 +69,15 @@ foreach ($products as $element) {
         <form action="/cart.php" method="GET">
             <label for="quantity">Quantité</label>
             <input type="hidden" name="nomCommande" id="nomCommande" value="<?php echo $element["name"] ?>">
-            <input type="hidden" name="prixCommande" id="prixCommande" value="<?php echo $element["price"] ?>">
-            <input type="hidden" name="discountCommande" id="discountCommande" value="<?php echo $element["discount"] ?>">
+            <input type="hidden" name="prixCommande" id="prixCommande" value="<?php echo (int)$element["price"] ?>">
+            <input type="hidden" name="discountCommande" id="discountCommande" value="<?php echo (int)$element["discount"] ?>">
             <input type="hidden" name="urlImg" id="urlImg" value="<?php echo $element["picture_url"] ?>">
-            <input type="number" name="quantity" id="quantity" min="0" max="5" value="<?php echo $quantity; ?>">
+            <input type="number" name="quantity" id="quantity" min="0" max="5" value="<?php echo (int)$quantity; ?>">
             <input type="submit" value="Je commande">
         </form>
+    </div>
+    <div>
+        <form action=""></form>
     </div>
 
     <?php
