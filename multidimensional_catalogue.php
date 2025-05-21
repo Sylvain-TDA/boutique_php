@@ -10,8 +10,8 @@ $products = [
         "discount" => 10,
         "picture_url" => "https://content.backcountry.com/images/items/large/SCR/SCR008R/OCE.jpg",
     ],
-    "laSportiva" => [
-        "name" => "La Sportiva",
+    "LaSportiva" => [
+        "name" => "LaSportiva",
         "price" => 14000,
         "weight" => 520,
         "discount" => null,
@@ -58,31 +58,28 @@ include("footer.php");
 
 <!-- code qui fait pareil que celui au dessus mais un peu plus propre -->
 <!-- ----------------------------------------------------------- -->
+<form action="/cart.php" method="GET">
 <?php
 foreach ($products as $element) {
     ?>
     <div class="monProduit">
-        <h3> <?php echo $element["name"] ?> <br> </h3>
-        <p> Prix HT : <?php echo formatPrice(priceExcludingVAT($element["price"])) ?> <br> </p>
-        <p> Prix TTC : <?php echo formatPrice($element["price"]) ?> <br> </p>
-        <img src="<?php echo $element['picture_url'] ?>" alt="<?php echo $element["name"] ?>" width="300px">
-        <form action="/cart.php" method="GET">
+            <h3> <?php echo $element["name"] ?> <br> </h3>
+            <p> Prix HT : <?php echo formatPrice(priceExcludingVAT($element["price"])) ?> <br> </p>
+            <p> Prix TTC : <?php echo formatPrice($element["price"]) ?> <br> </p>
+            <img src="<?php echo $element['picture_url'] ?>" alt="<?php echo $element["name"] ?>" width="300px">
             <label for="quantity">Quantité</label>
-            <input type="hidden" name="nomCommande" id="nomCommande" value="<?php echo $element["name"] ?>">
-            <input type="hidden" name="prixCommande" id="prixCommande" value="<?php echo (int)$element["price"] ?>">
-            <input type="hidden" name="discountCommande" id="discountCommande" value="<?php echo (int)$element["discount"] ?>">
-            <input type="hidden" name="urlImg" id="urlImg" value="<?php echo $element["picture_url"] ?>">
-            <input type="number" name="quantity" id="quantity" min="0" max="5" value="<?php echo (int)$quantity; ?>">
+            <input type="hidden" name="nomCommande<?php echo $element["name"] ?>" id="nomCommande" value="<?php echo $element["name"] ?>">
+            <input type="hidden" name="prixCommande<?php echo $element["name"] ?>" id="prixCommande" value="<?php echo $element["price"] ?>">
+            <input type="hidden" name="discountCommande<?php echo $element["name"] ?>" id="discountCommande" value="<?php echo (int)$element["discount"] ?>">
+            <input type="hidden" name="urlImg<?php echo $element["name"] ?>" id="urlImg" value="<?php echo $element["picture_url"] ?>">
+            <input type="number" name="quantity<?php echo $element["name"] ?>" id="quantity" min="0" max="5" value="<?php echo (int)$quantity; ?>">
             <input type="submit" value="Je commande">
-        </form>
-    </div>
-    <div>
-        <form action=""></form>
-    </div>
-
-    <?php
+        </div>
+        
+        <?php
 }
 ?>
+</form>
 <!-- ----------------------------------------------------------- -->
 
 </body>

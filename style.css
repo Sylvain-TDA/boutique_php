@@ -1,6 +1,4 @@
-*HEADER*/ 
-
-header {
+*HEADER*/ header {
     color: rgb(236, 228, 228);
     padding: 15px 0;
     text-align: center;
@@ -20,6 +18,21 @@ h1 {
     color: rgb(236, 228, 228);
 }
 
+.monPanier {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 20px;
+}
+
+.listeProduits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1;
+    /* Prend tout l'espace restant */
+}
+
 .monProduit {
     border: solid;
     border-radius: 4px;
@@ -28,6 +41,33 @@ h1 {
     padding: 1em;
     text-align: center;
     width:450px;
+}
+
+.monProduitPanier {
+    border: solid;
+    padding: 10px;
+    box-shadow: 8px 8px 2px 1px #1B893C;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+    flex-shrink: 0;
+    text-align: center;
+    /* Ne pas se rétrécir */
+}
+
+.monTotal {
+    border: solid;
+    box-shadow: 8px 8px 2px 1px #1B893C;
+    background-color: #e6ffe6;
+    padding: 20px;
+    border-radius: 4px;
+    min-width: 250px;
+    font-size: 18px;
+    font-weight: bold;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+    /* Bonus : le garde visible au scroll */
 }
 
 .navbar {
