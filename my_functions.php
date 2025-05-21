@@ -1,38 +1,32 @@
 <?php
 
-function formatPrice($price): string
-{
+function formatPrice($price): string {
     $formatedPrice = (number_format($price / 100, 2, ",", " ")) . "€";
     return $formatedPrice;
 }
 ;
 
-function priceExcludingVAT($price)
-{
+function priceExcludingVAT($price):float {
     $price = (100 * $price) / (100 + 20);
     return $price;
 }
 ;
 
-function discountedPrice($price, $discount)
-{
+function discountedPrice($price, $discount):float{
     if ($discount == 0) {
         return $price;
     } else {
         (float) $priceDiscounted = $price * ((100 - $discount) / 100);
         return $priceDiscounted;
     }
-}
-;
+};
 
-function sum($price, $quantity)
-{
+function sum($price, $quantity):float{
     $sum = $price * $quantity;
     return $sum;
 }
 
-function shippingCost($carrier, $weight, $sum)
-{
+function shippingCost($carrier, $weight, $sum):float{
     if ($carrier = 1) {
         if ($weight >= 0 && $weight < 500) {
             return (int) 5;

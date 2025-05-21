@@ -37,23 +37,6 @@ $buffer = str_replace("%TITLE%", "Multidimensional catalogue", $buffer);
 echo $buffer;
 ?>
 
-<!-- Je préfère rendre obsolète ce code et je choisis celui d'après -->
-<!-- ----------------------------------------------------------- -->
-<!-- <?php
-
-foreach ($products as $element) {
-    echo "<div class='monProduit'>";
-    echo "<h3>";
-    echo $element["name"] . "<br>" . "</h3>";
-    echo "<p>";
-    echo "Prix : " . $element["price"] . "€" . "<br>";
-    echo "</p>";
-    echo "<img src=$element[picture_url] alt=$element[name] width='300px'>";
-    echo "</div>";
-}
-
-include("footer.php");
-?> -->
 <!-- ----------------------------------------------------------- -->
 
 <!-- code qui fait pareil que celui au dessus mais un peu plus propre -->

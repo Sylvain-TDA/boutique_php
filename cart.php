@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 
 ob_start();
@@ -25,7 +22,7 @@ $sumWeight = 0;
     <div class="listeProduits">
         <?php
         foreach ($products as $x) {
-            if (isset(($_GET["quantity" . $x])) && $_GET["quantity" . $x] != 0) {
+            if (isset(($_GET["quantity$x" ])) && (int)$_GET["quantity$x"] != 0) {
                 ?>
                 <div class="monProduitPanier">
                     <p><?php echo $_GET["nomCommande$x"]; ?></p>
@@ -47,13 +44,13 @@ $sumWeight = 0;
                     </p>
                     <p>Total TTC :
                         <?php
-                        $montantTTC = ($_GET["prixCommande$x"] * $_GET["quantity$x"]) * ((100 - $_GET["discountCommande$x"]) / 100);
+                        $montantTTC = ((float)$_GET["prixCommande$x"] * (int)$_GET["quantity$x"]) * ((100 - (float)$_GET["discountCommande$x"]) / 100);
                         echo formatPrice($montantTTC);
                         ?>
                     </p>
                     <p>Poids :
                         <?php
-                        $poids = $_GET["weight$x"] * $_GET["quantity$x"];
+                        $poids = (int)$_GET["weight$x"] * (int)$_GET["quantity$x"];
                         echo $_GET["weight$x"];
                         ?> gr
                     </p>
@@ -76,6 +73,7 @@ $sumWeight = 0;
             </p>
         </form>
         <p>Frais de port : <?php
+        // echo $_POST["transpoteur"];
           if (isset($_POST["transporteur"])) {
         echo shippingCost($_POST["transporteur"], $sumWeight, $somme / 100);
         }; ?></p>
