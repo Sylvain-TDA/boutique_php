@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 ob_start();
 include("header.php");
 $buffer = ob_get_contents();
@@ -15,17 +16,24 @@ include "my_functions.php";
 $products = ["Scarpa", "LaSportiva", "Simond"];
 $somme = 0;
 $sumWeight = 0;
+
+if (isset($_POST["emptyMyCart"])) {
+    emptyMyCart();
+    $panierVideManuellement = true;
+}
 ?>
 
 
 <div class="monPanier">
     <div class="listeProduits">
         <?php
+        if (empty($panierVideManuellement)){
         foreach ($products as $x) {
             if (isset(($_GET["quantity$x"])) && (int) $_GET["quantity$x"] != 0) {
-                $_SESSION["commande" . $x] = array($_GET['nomCommande' . $x], $_GET['quantity' . $x], $_GET['prixCommande' . $x], $_GET['discountCommande' . $x], $_GET["urlImg" . $x], $_GET["weight" . $x] );
+                $_SESSION["commande" . $x] = array($_GET['nomCommande' . $x], $_GET['quantity' . $x], $_GET['prixCommande' . $x], $_GET['discountCommande' . $x], $_GET["urlImg" . $x], $_GET["weight" . $x]);
             }
         }
+    }
         foreach ($products as $x) {
             if (!empty($_SESSION["commande" . $x])) {
                 ?>
@@ -34,7 +42,7 @@ $sumWeight = 0;
                     <img src="<?php print_r($_SESSION["commande" . $x][4]); ?>" alt="Photo" width="50px">
                     <p>Quantité : <?php print_r($_SESSION["commande" . $x][1]); ?> </p>
                     <h3>P.U : <?php $formatedPrice = ($_SESSION["commande" . $x][2]);
-                    echo formatPrice($formatedPrice);  ?> </h3>
+                    echo formatPrice($formatedPrice); ?> </h3>
                     <p>Solde : <?php print_r($_SESSION["commande" . $x][3]); ?> % </p>
                     <p>Poids :
                         <?php
@@ -56,7 +64,7 @@ $sumWeight = 0;
                     </p>
                     <h2>Total TTC :
                         <?php
-                        $montantTTC = (($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1]))* (1-(($_SESSION["commande" . $x][3])/100));
+                        $montantTTC = (($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1])) * (1 - (($_SESSION["commande" . $x][3]) / 100));
                         echo formatPrice($montantTTC);
                         ?>
                     </h2>
@@ -91,6 +99,9 @@ $sumWeight = 0;
             echo formatPrice($somme);
             ?>
         </p>
+        <form method="POST">
+            <input type="submit" value="Vider mon panier" name="emptyMyCart">
+        </form>
     </div>
 </div>
 

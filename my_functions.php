@@ -1,5 +1,4 @@
 <?php
-
 function formatPrice($price): string
 {
     $formatedPrice = (number_format($price / 100, 2, ",", " ")) . "€";
@@ -62,5 +61,13 @@ function shippingCost($carrier, $weight, $sum): float
     }
 }
 ;
+
+function emptyMyCart()
+{
+    $products = ["Scarpa", "LaSportiva", "Simond"];
+    foreach ($products as $x) {
+        unset($_SESSION["commande" . $x]);
+    }
+}
 
 ?>
