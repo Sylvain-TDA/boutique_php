@@ -18,11 +18,9 @@ h1 {
     color: rgb(236, 228, 228);
 }
 
-.monPanier {
+.formulaireBoutique {
     display: flex;
-    align-items: flex-start;
-    gap: 30px;
-    padding: 20px;
+    flex-wrap: wrap;
 }
 
 .listeProduits {
@@ -33,11 +31,18 @@ h1 {
     /* Prend tout l'espace restant */
 }
 
+.monPanier {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 20px;
+}
+
 .monProduit {
     border: solid;
     border-radius: 4px;
     box-shadow: 8px 8px 2px 1px #1B893C;
-    margin: 2em 10em 2em 10em;
+    margin: 2em;
     padding: 1em;
     text-align: center;
     width:450px;

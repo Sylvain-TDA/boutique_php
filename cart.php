@@ -26,7 +26,10 @@ if (isset($_POST["emptyMyCart"])) {
 <div class="monPanier">
     <div class="listeProduits">
         <?php
-        foreach ($products as $x) {
+        if ($_SESSION["commandeScarpa"][1] == 0 && $_SESSION["commandeLaSportiva"][1] == 0 && $_SESSION["commandeSimond"][1] == 0) {
+            echo "<h2>Votre panier est vide</>";
+        }
+         foreach ($products as $x) {
             if (isset($_POST["quantity$x"]) && (int) $_POST["quantity$x"] != 0) {
                 $nom = htmlspecialchars($_POST["nomCommande$x"]);
                 $qty = (int) $_POST["quantity$x"];
@@ -40,7 +43,7 @@ if (isset($_POST["emptyMyCart"])) {
                 } else {
                     $_SESSION["commande$x"] = [$nom, $qty, $prix, $discount, $img, $weight];
                 }
-            }
+            } 
         }
         foreach ($products as $x) {
             if (!empty($_SESSION["commande" . $x])) {

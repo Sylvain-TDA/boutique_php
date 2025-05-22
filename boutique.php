@@ -21,7 +21,7 @@ echo $buffer;
 
 <!-- code qui fait pareil que celui au dessus mais un peu plus propre -->
 <!-- ----------------------------------------------------------- -->
-<form action="/cart.php" method="POST">
+<form action="/cart.php" method="POST" class="formulaireBoutique">
     <?php
     foreach ($products as $element) {
         ?>
@@ -29,7 +29,7 @@ echo $buffer;
             <h3> <?php echo $element["name"] ?> <br> </h3>
             <p> Prix HT : <?php echo formatPrice(priceExcludingVAT($element["price"])) ?> <br> </p>
             <p> Prix TTC : <?php echo formatPrice($element["price"]) ?> <br> </p>
-            <img src="<?php echo $element['picture_url'] ?>" alt="<?php echo $element["name"] ?>" width="300px">
+            <img src="<?php echo $element["picture_url"] ?>" alt="<?php echo $element["name"] ?>" width="300px">
             <div>
                 <label for="quantity">Quantité</label>
                 <input type="hidden" name="nomCommande<?php echo $element["name"] ?>" id="nomCommande"
@@ -50,10 +50,9 @@ echo $buffer;
 
         <?php
     }
-    include "footer.php";
-    ?>
     ?>
 </form>
+<?php include "footer.php"; ?>
 <!-- ----------------------------------------------------------- -->
 
 </body>
