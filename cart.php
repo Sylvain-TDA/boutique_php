@@ -22,14 +22,20 @@ $sumWeight = 0;
     <div class="listeProduits">
         <?php
         foreach ($products as $x) {
-            if (isset(($_GET["quantity$x" ])) && (int)$_GET["quantity$x"] != 0) {
+            if (isset(($_GET["quantity$x"])) && (int) $_GET["quantity$x"] != 0) {
                 ?>
                 <div class="monProduitPanier">
-                    <p><?php echo $_GET["nomCommande$x"]; ?></p>
-                    <p><?php echo formatPrice($_GET["prixCommande$x"]); ?> </p>
-                    <p><?php echo $_GET["discountCommande$x"] . "%"; ?> </p>
-                    <p><?php echo "Quantité : " . $_GET["quantity$x"]; ?> </p>
+                    <h2><?php echo $_GET["nomCommande$x"]; ?></h2>
                     <img src="<?php echo $_GET["urlImg$x"]; ?>" alt="Photo" width="50px">
+                    <p><?php echo "Quantité : " . $_GET["quantity$x"]; ?> </p>
+                    <h3><?php echo "P.U : " . formatPrice($_GET["prixCommande$x"]); ?> </h3>
+                    <p><?php echo "Solde : " . $_GET["discountCommande$x"] . "%"; ?> </p>
+                    <p>Poids :
+                        <?php
+                        $poids = (int) $_GET["weight$x"] * (int) $_GET["quantity$x"];
+                        echo $_GET["weight$x"];
+                        ?> gr
+                    </p>
                     <p>Total HT:
                         <?php
                         $montantHT = priceExcludingVAT(((int) $_GET["prixCommande$x"] * (int) $_GET["quantity$x"]) * (100 - ((int) $_GET["discountCommande$x"])) / 100);
@@ -38,22 +44,16 @@ $sumWeight = 0;
                     </p>
                     <p>Total TVA:
                         <?php
-                        $TVA = round(($montantHT * 0.2) / 100,2);
+                        $TVA = round(($montantHT * 0.2) / 100, 2);
                         echo $TVA . "€";
                         ?>
                     </p>
-                    <p>Total TTC :
+                    <h2>Total TTC :
                         <?php
-                        $montantTTC = ((float)$_GET["prixCommande$x"] * (int)$_GET["quantity$x"]) * ((100 - (float)$_GET["discountCommande$x"]) / 100);
+                        $montantTTC = ((float) $_GET["prixCommande$x"] * (int) $_GET["quantity$x"]) * ((100 - (float) $_GET["discountCommande$x"]) / 100);
                         echo formatPrice($montantTTC);
                         ?>
-                    </p>
-                    <p>Poids :
-                        <?php
-                        $poids = (int)$_GET["weight$x"] * (int)$_GET["quantity$x"];
-                        echo $_GET["weight$x"];
-                        ?> gr
-                    </p>
+                    </h2>
                 </div>
                 <?php
                 $somme += $montantTTC;
@@ -66,17 +66,20 @@ $sumWeight = 0;
     <div class="monTotal">
         <form method="POST">
             <label for="transporteur">Choisissez un transporteur :</label>
-            <select id="transporteur" name="transporteur" onchange="this.form.submit()">
-                <option value="1">DHL</option>
-                <option value="2">UPS</option>
+            <select id="transporteurSelection" name="transporteur" onchange="this.form.submit()">
+                <option value="transporteur" selected="Transporteur"></option>
+                <option value="DHL">DHL</option>
+                <option value="UPS">UPS</option>
+                <option value="Fedex">Fedex</option>
             </select>
             </p>
         </form>
-        <p>Frais de port : <?php
-        // echo $_POST["transpoteur"];
-          if (isset($_POST["transporteur"])) {
-        echo shippingCost($_POST["transporteur"], $sumWeight, $somme / 100);
-        }; ?></p>
+        <p><?php
+        if (isset($_POST["transporteur"])) {
+            echo "Vous avez choisi : " . $_POST["transporteur"] . ", pour un montant de " . shippingCost($_POST["transporteur"], $sumWeight, $somme / 100) . "€ <br>";
+        }
+        ;
+        ?></p>
         <p>Total général :
             <?php
             echo formatPrice($somme);
