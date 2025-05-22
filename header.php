@@ -16,7 +16,6 @@
                 <ul class="nav-links">
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="page_produit.php">Boutique</a></li>
-                    <li><a href="simple_catalogue.php">Simple catalogue</a></li>
                     <li><a href="cart.php">Panier</a></li>
                 </ul>
             </nav>

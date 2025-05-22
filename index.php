@@ -11,6 +11,6 @@ ob_end_clean();
 $buffer = str_replace("%TITLE%", "Index", $buffer);
 echo $buffer;
 
-echo 'Bienvenue dans mon projet';
+echo '<h1> Bienvenue sur la boutique de la grimpe </h1>';
 include('footer.php');
 ?>

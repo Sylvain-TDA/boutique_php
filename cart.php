@@ -19,7 +19,6 @@ $sumWeight = 0;
 
 if (isset($_POST["emptyMyCart"])) {
     emptyMyCart();
-    $panierVideManuellement = true;
 }
 ?>
 
@@ -27,20 +26,34 @@ if (isset($_POST["emptyMyCart"])) {
 <div class="monPanier">
     <div class="listeProduits">
         <?php
-        if (empty($panierVideManuellement)){
         foreach ($products as $x) {
-            if (isset(($_POST["quantity$x"])) && (int) $_POST["quantity$x"] != 0) {
-                $_SESSION["commande" . $x] = array(htmlspecialchars($_POST['nomCommande' . $x]), htmlspecialchars($_POST['quantity' . $x]), htmlspecialchars($_POST['prixCommande' . $x]), htmlspecialchars($_POST['discountCommande' . $x]), htmlspecialchars($_POST["urlImg" . $x]), htmlspecialchars($_POST["weight" . $x]));
+            if (isset($_POST["quantity$x"]) && (int) $_POST["quantity$x"] != 0) {
+                $nom = htmlspecialchars($_POST["nomCommande$x"]);
+                $qty = (int) $_POST["quantity$x"];
+                $prix = (float) htmlspecialchars($_POST["prixCommande$x"]);
+                $discount = (float) htmlspecialchars($_POST["discountCommande$x"]);
+                $img = htmlspecialchars($_POST["urlImg$x"]);
+                $weight = (float) htmlspecialchars($_POST["weight$x"]);
+
+                if (isset($_SESSION["commande$x"])) {
+                    $_SESSION["commande$x"][1] += $qty;
+                } else {
+                    $_SESSION["commande$x"] = [$nom, $qty, $prix, $discount, $img, $weight];
+                }
             }
         }
-    }
         foreach ($products as $x) {
             if (!empty($_SESSION["commande" . $x])) {
                 ?>
                 <div class="monProduitPanier">
                     <h2><?php print_r($_SESSION["commande" . $x][0]); ?></h2>
                     <img src="<?php print_r($_SESSION["commande" . $x][4]); ?>" alt="Photo" width="50px">
-                    <p>Quantité : <?php print_r($_SESSION["commande" . $x][1]); ?> </p>
+                    <p>Quantité :
+                        <?php
+                        print_r($_SESSION["commande" . $x][1]);
+                        ;
+                        ?>
+                    </p>
                     <h3>P.U : <?php $formatedPrice = ($_SESSION["commande" . $x][2]);
                     echo formatPrice($formatedPrice); ?> </h3>
                     <p>Solde : <?php print_r($_SESSION["commande" . $x][3]); ?> % </p>
