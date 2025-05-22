@@ -29,8 +29,8 @@ if (isset($_POST["emptyMyCart"])) {
         <?php
         if (empty($panierVideManuellement)){
         foreach ($products as $x) {
-            if (isset(($_GET["quantity$x"])) && (int) $_GET["quantity$x"] != 0) {
-                $_SESSION["commande" . $x] = array($_GET['nomCommande' . $x], $_GET['quantity' . $x], $_GET['prixCommande' . $x], $_GET['discountCommande' . $x], $_GET["urlImg" . $x], $_GET["weight" . $x]);
+            if (isset(($_POST["quantity$x"])) && (int) $_POST["quantity$x"] != 0) {
+                $_SESSION["commande" . $x] = array(htmlspecialchars($_POST['nomCommande' . $x]), htmlspecialchars($_POST['quantity' . $x]), htmlspecialchars($_POST['prixCommande' . $x]), htmlspecialchars($_POST['discountCommande' . $x]), htmlspecialchars($_POST["urlImg" . $x]), htmlspecialchars($_POST["weight" . $x]));
             }
         }
     }

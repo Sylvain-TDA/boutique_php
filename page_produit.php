@@ -21,7 +21,7 @@ echo $buffer;
 
 <!-- code qui fait pareil que celui au dessus mais un peu plus propre -->
 <!-- ----------------------------------------------------------- -->
-<form action="/cart.php" method="GET">
+<form action="/cart.php" method="POST">
     <?php
     foreach ($products as $element) {
         ?>
