@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include ("my_functions.php");
 
 ob_start();

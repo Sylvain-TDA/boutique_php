@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 ob_start();
 include("header.php");
@@ -23,22 +23,28 @@ $sumWeight = 0;
         <?php
         foreach ($products as $x) {
             if (isset(($_GET["quantity$x"])) && (int) $_GET["quantity$x"] != 0) {
+                $_SESSION["commande" . $x] = array($_GET['nomCommande' . $x], $_GET['quantity' . $x], $_GET['prixCommande' . $x], $_GET['discountCommande' . $x], $_GET["urlImg" . $x], $_GET["weight" . $x] );
+            }
+        }
+        foreach ($products as $x) {
+            if (!empty($_SESSION["commande" . $x])) {
                 ?>
                 <div class="monProduitPanier">
-                    <h2><?php echo $_GET["nomCommande$x"]; ?></h2>
-                    <img src="<?php echo $_GET["urlImg$x"]; ?>" alt="Photo" width="50px">
-                    <p><?php echo "Quantité : " . $_GET["quantity$x"]; ?> </p>
-                    <h3><?php echo "P.U : " . formatPrice($_GET["prixCommande$x"]); ?> </h3>
-                    <p><?php echo "Solde : " . $_GET["discountCommande$x"] . "%"; ?> </p>
+                    <h2><?php print_r($_SESSION["commande" . $x][0]); ?></h2>
+                    <img src="<?php print_r($_SESSION["commande" . $x][4]); ?>" alt="Photo" width="50px">
+                    <p>Quantité : <?php print_r($_SESSION["commande" . $x][1]); ?> </p>
+                    <h3>P.U : <?php $formatedPrice = ($_SESSION["commande" . $x][2]);
+                    echo formatPrice($formatedPrice);  ?> </h3>
+                    <p>Solde : <?php print_r($_SESSION["commande" . $x][3]); ?> % </p>
                     <p>Poids :
                         <?php
-                        $poids = (int) $_GET["weight$x"] * (int) $_GET["quantity$x"];
-                        echo $_GET["weight$x"];
+                        $poids = $_SESSION["commande" . $x][5] * $_SESSION["commande" . $x][1];
+                        echo $poids;
                         ?> gr
                     </p>
                     <p>Total HT:
                         <?php
-                        $montantHT = priceExcludingVAT(((int) $_GET["prixCommande$x"] * (int) $_GET["quantity$x"]) * (100 - ((int) $_GET["discountCommande$x"])) / 100);
+                        $montantHT = ($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1]) * (100 - ($_SESSION["commande" . $x][3])) / 100;
                         echo (formatPrice($montantHT));
                         ?>
                     </p>
@@ -50,7 +56,7 @@ $sumWeight = 0;
                     </p>
                     <h2>Total TTC :
                         <?php
-                        $montantTTC = ((float) $_GET["prixCommande$x"] * (int) $_GET["quantity$x"]) * ((100 - (float) $_GET["discountCommande$x"]) / 100);
+                        $montantTTC = (($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1]))* (1-(($_SESSION["commande" . $x][3])/100));
                         echo formatPrice($montantTTC);
                         ?>
                     </h2>
@@ -67,7 +73,7 @@ $sumWeight = 0;
         <form method="POST">
             <label for="transporteur">Choisissez un transporteur :</label>
             <select id="transporteurSelection" name="transporteur" onchange="this.form.submit()">
-                <option value="transporteur" selected="Transporteur"></option>
+                <option value="transporteur" selected="Transporteur">Choisir un transporteur</option>
                 <option value="DHL">DHL</option>
                 <option value="UPS">UPS</option>
                 <option value="Fedex">Fedex</option>
