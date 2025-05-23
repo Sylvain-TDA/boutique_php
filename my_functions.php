@@ -44,7 +44,7 @@ function shippingCost($carrier, $weight, $sum): float
         if ($weight >= 0 && $weight < 400) {
             return (float) 3;
         } elseif ($weight >= 400 && $weight <= 2500) {
-            return (float) $sum * 0.12;
+            return (float) round($sum * 0.12,2);
         } else {
             return (float) 0;
         }

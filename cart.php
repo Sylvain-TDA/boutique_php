@@ -86,7 +86,7 @@ if (isset($_POST["emptyMyCart"])) {
                     <h2>Total TTC :
                         <?php
                         $montantTTC = formatPrice($montantHT) + $TVA;
-                        echo $montantTTC;
+                        echo $montantTTC . "€";
                         ?>
                     </h2>
                 </div>
