@@ -2,6 +2,13 @@
 
 
 $products = [
+     "EB" => [
+        "name" => "EB",
+        "price" => 8000,
+        "weight" => 220,
+        "discount" => 15,
+        "picture_url" => "https://www.madinina-sports-outdoor.fr/752-large_default/eb-chaussons-d-escalade-femme-black-opium.jpg",
+    ],
     "scarpa" => [
         "name" => "Scarpa",
         "price" => 12000,

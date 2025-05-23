@@ -13,7 +13,7 @@ echo $buffer;
 
 <?php
 include "my_functions.php";
-$products = ["Scarpa", "LaSportiva", "Simond"];
+$products = ["EB", "Scarpa", "LaSportiva", "Simond"];
 $somme = 0;
 $sumWeight = 0;
 
@@ -21,16 +21,13 @@ if (isset($_POST["emptyMyCart"])) {
     emptyMyCart();
 }
 
-// Générer un jeton unique
-if (empty($_SESSION['form_token'])) {
-    $_SESSION['form_token'] = bin2hex(random_bytes(32));
-}
+
 ?>
 
 <div class="monPanier">
     <div class="listeProduits">
         <?php
-        if ($_SESSION["commandeScarpa"][1] == 0 && $_SESSION["commandeLaSportiva"][1] == 0 && $_SESSION["commandeSimond"][1] == 0) {
+        if ($_SESSION["commandeScarpa"][1] == 0 && $_SESSION["commandeLaSportiva"][1] == 0 && $_SESSION["commandeSimond"][1] == 0 && $_SESSION["commandeEB"][1] == 0) {
             echo "<h2>Votre panier est vide</>";
         }
         foreach ($products as $x) {
@@ -42,17 +39,16 @@ if (empty($_SESSION['form_token'])) {
                 $img = htmlspecialchars($_POST["urlImg$x"]);
                 $weight = (float) htmlspecialchars($_POST["weight$x"]);
 
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if (isset($_POST['form_token']) && $_POST['form_token'] === $_SESSION['form_token']) {
-                        if (isset($_SESSION["commande$x"])) {
-                            $_SESSION["commande$x"][1] += $qty;
-                        }
+                if (isset($_POST['form_token']) && $_POST['form_token'] === $_SESSION['form_token']) {
+                    if (isset($_SESSION["commande$x"])&& isset($_SESSION['form_token'])) {
+                        $_SESSION["commande$x"][1] += $qty;
                     } else {
                         $_SESSION["commande$x"] = [$nom, $qty, $prix, $discount, $img, $weight];
                     }
                 }
             }
         }
+
         foreach ($products as $x) {
             if (!empty($_SESSION["commande" . $x])) {
                 ?>
@@ -77,13 +73,13 @@ if (empty($_SESSION['form_token'])) {
                     <p>Total HT avec solde:
                         <?php
                         // $montantHT = ($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1]) * (100 - ($_SESSION["commande" . $x][3])) / 100;
-                        $montantHT = discountedPrice($_SESSION["commande$x"][2], $_SESSION["commande$x"][3]);
+                        $montantHT = (discountedPrice($_SESSION["commande$x"][2], $_SESSION["commande$x"][3])) * $_SESSION["commande$x"][1];
                         echo (formatPrice($montantHT));
                         ?>
                     </p>
                     <p>Total TVA:
                         <?php
-                        $TVA = round(($montantHT * 0.2) / 100, 2);
+                        $TVA = round(($montantHT * 0.2)/100, 2);
                         echo $TVA . "€";
                         ?>
                     </p>
@@ -97,7 +93,6 @@ if (empty($_SESSION['form_token'])) {
                 <?php
                 $somme += $montantTTC;
                 $sumWeight += $poids;
-                unset($_SESSION['form_token']);
             }
         }
 
@@ -124,7 +119,7 @@ if (empty($_SESSION['form_token'])) {
         ?></p>
         <p>Total général :
             <?php
-            echo formatPrice($somme);
+            echo $somme . " €";
             ?>
         </p>
         <form method="POST">

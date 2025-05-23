@@ -64,7 +64,7 @@ function shippingCost($carrier, $weight, $sum): float
 
 function emptyMyCart()
 {
-    $products = ["Scarpa", "LaSportiva", "Simond"];
+    $products = ["EB","Scarpa", "LaSportiva", "Simond"];
     foreach ($products as $x) {
         unset($_SESSION["commande" . $x]);
     }

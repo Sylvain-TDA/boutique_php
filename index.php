@@ -12,5 +12,10 @@ $buffer = str_replace("%TITLE%", "Index", $buffer);
 echo $buffer;
 
 echo "<h1> Bienvenue sur la boutique de la grimpe </h1>";
-include"footer.php";
+echo "<div class='backgroundImg'><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>";
+?>
+
+
+<?php
+include "footer.php";
 ?>

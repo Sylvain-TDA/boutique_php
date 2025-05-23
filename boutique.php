@@ -13,6 +13,11 @@ include("header.php");
 $buffer = ob_get_contents();
 ob_end_clean();
 
+// Générer un jeton unique
+if (empty($_SESSION['form_token'])) {
+    $_SESSION['form_token'] = bin2hex(random_bytes(32));
+}
+
 $buffer = str_replace("%TITLE%", "Multidimensional catalogue", $buffer);
 echo $buffer;
 ?>
@@ -26,8 +31,9 @@ echo $buffer;
             <p> Prix HT : <?php echo formatPrice(priceExcludingVAT($element["price"])) ?> <br> </p>
             <p> Prix TTC : <?php echo formatPrice($element["price"]) ?> <br> </p>
             <img src="<?php echo $element["picture_url"] ?>" alt="<?php echo $element["name"] ?>" width="300px">
-            <div>
+            <div class="submitParent">
                 <label for="quantity">Quantité</label>
+                <input type="hidden" name="form_token" value="<?php echo $_SESSION['form_token']; ?>">
                 <input type="hidden" name="nomCommande<?php echo $element["name"] ?>" id="nomCommande"
                     value="<?php echo $element["name"] ?>">
                 <input type="hidden" name="weight<?php echo $element["name"] ?>" id="weight"
@@ -52,4 +58,5 @@ echo $buffer;
 <?php include "footer.php"; ?>
 
 </body>
+
 </html>
