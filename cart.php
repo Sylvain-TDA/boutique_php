@@ -113,7 +113,7 @@ if (isset($_POST["emptyMyCart"])) {
         </form>
         <p><?php
         if (isset($_POST["transporteur"])) {
-            echo "Vous avez choisi : " . $_POST["transporteur"] . ", pour un montant de " . shippingCost($_POST["transporteur"], $sumWeight, $somme / 100) . "€ <br>";
+            echo "Vous avez choisi : " . $_POST["transporteur"] . ", pour un montant de " . shippingCost($_POST["transporteur"], $sumWeight, $somme) . "€ <br>";
         }
         ;
         ?></p>

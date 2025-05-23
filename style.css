@@ -19,7 +19,7 @@ input[value="Je commande"] {
 
 .submitParent:hover>input[value="Je commande"] {
     font-size: large;
-    display: inline-flex;
+    display: block;
     justify-content: center;
 }
 

@@ -18,7 +18,7 @@ if (empty($_SESSION['form_token'])) {
     $_SESSION['form_token'] = bin2hex(random_bytes(32));
 }
 
-$buffer = str_replace("%TITLE%", "Multidimensional catalogue", $buffer);
+$buffer = str_replace("%TITLE%", "Boutique", $buffer);
 echo $buffer;
 ?>
 
