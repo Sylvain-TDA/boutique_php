@@ -17,10 +17,6 @@ $buffer = str_replace("%TITLE%", "Multidimensional catalogue", $buffer);
 echo $buffer;
 ?>
 
-<!-- ----------------------------------------------------------- -->
-
-<!-- code qui fait pareil que celui au dessus mais un peu plus propre -->
-<!-- ----------------------------------------------------------- -->
 <form action="/cart.php" method="POST" class="formulaireBoutique">
     <?php
     foreach ($products as $element) {
@@ -52,9 +48,8 @@ echo $buffer;
     }
     ?>
 </form>
+
 <?php include "footer.php"; ?>
-<!-- ----------------------------------------------------------- -->
 
 </body>
-
 </html>

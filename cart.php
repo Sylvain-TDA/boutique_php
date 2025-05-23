@@ -20,8 +20,12 @@ $sumWeight = 0;
 if (isset($_POST["emptyMyCart"])) {
     emptyMyCart();
 }
-?>
 
+// Générer un jeton unique
+if (empty($_SESSION['form_token'])) {
+    $_SESSION['form_token'] = bin2hex(random_bytes(32));
+}
+?>
 
 <div class="monPanier">
     <div class="listeProduits">
@@ -29,7 +33,7 @@ if (isset($_POST["emptyMyCart"])) {
         if ($_SESSION["commandeScarpa"][1] == 0 && $_SESSION["commandeLaSportiva"][1] == 0 && $_SESSION["commandeSimond"][1] == 0) {
             echo "<h2>Votre panier est vide</>";
         }
-         foreach ($products as $x) {
+        foreach ($products as $x) {
             if (isset($_POST["quantity$x"]) && (int) $_POST["quantity$x"] != 0) {
                 $nom = htmlspecialchars($_POST["nomCommande$x"]);
                 $qty = (int) $_POST["quantity$x"];
@@ -38,12 +42,16 @@ if (isset($_POST["emptyMyCart"])) {
                 $img = htmlspecialchars($_POST["urlImg$x"]);
                 $weight = (float) htmlspecialchars($_POST["weight$x"]);
 
-                if (isset($_SESSION["commande$x"])) {
-                    $_SESSION["commande$x"][1] += $qty;
-                } else {
-                    $_SESSION["commande$x"] = [$nom, $qty, $prix, $discount, $img, $weight];
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if (isset($_POST['form_token']) && $_POST['form_token'] === $_SESSION['form_token']) {
+                        if (isset($_SESSION["commande$x"])) {
+                            $_SESSION["commande$x"][1] += $qty;
+                        }
+                    } else {
+                        $_SESSION["commande$x"] = [$nom, $qty, $prix, $discount, $img, $weight];
+                    }
                 }
-            } 
+            }
         }
         foreach ($products as $x) {
             if (!empty($_SESSION["commande" . $x])) {
@@ -57,18 +65,19 @@ if (isset($_POST["emptyMyCart"])) {
                         ;
                         ?>
                     </p>
-                    <h3>P.U : <?php $formatedPrice = ($_SESSION["commande" . $x][2]);
+                    <h3 class="reducedPrice">P.U : <?php $formatedPrice = ($_SESSION["commande" . $x][2]);
                     echo formatPrice($formatedPrice); ?> </h3>
-                    <p>Solde : <?php print_r($_SESSION["commande" . $x][3]); ?> % </p>
+                    <p class="solde">Solde : <?php print_r($_SESSION["commande" . $x][3]); ?> % </p>
                     <p>Poids :
                         <?php
                         $poids = $_SESSION["commande" . $x][5] * $_SESSION["commande" . $x][1];
                         echo $poids;
                         ?> gr
                     </p>
-                    <p>Total HT:
+                    <p>Total HT avec solde:
                         <?php
-                        $montantHT = ($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1]) * (100 - ($_SESSION["commande" . $x][3])) / 100;
+                        // $montantHT = ($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1]) * (100 - ($_SESSION["commande" . $x][3])) / 100;
+                        $montantHT = discountedPrice($_SESSION["commande$x"][2], $_SESSION["commande$x"][3]);
                         echo (formatPrice($montantHT));
                         ?>
                     </p>
@@ -80,16 +89,19 @@ if (isset($_POST["emptyMyCart"])) {
                     </p>
                     <h2>Total TTC :
                         <?php
-                        $montantTTC = (($_SESSION["commande" . $x][2] * (int) $_SESSION["commande" . $x][1])) * (1 - (($_SESSION["commande" . $x][3]) / 100));
-                        echo formatPrice($montantTTC);
+                        $montantTTC = formatPrice($montantHT) + $TVA;
+                        echo $montantTTC;
                         ?>
                     </h2>
                 </div>
                 <?php
                 $somme += $montantTTC;
                 $sumWeight += $poids;
+                unset($_SESSION['form_token']);
             }
         }
+
+
         ?>
 
     </div>

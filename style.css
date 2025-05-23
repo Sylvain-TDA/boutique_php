@@ -75,6 +75,14 @@ h1 {
     /* Bonus : le garde visible au scroll */
 }
 
+.reducedPrice {
+    text-decoration: line-through;
+}
+
+.solde {
+color : red;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
