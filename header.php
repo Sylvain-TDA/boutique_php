@@ -17,6 +17,7 @@
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="boutique.php">Boutique</a></li>
                     <li><a href="cart.php">Panier</a></li>
+                    <li><a href="orders.php">Toutes les commandes</a></li>
                 </ul>
             </nav>
         </div>

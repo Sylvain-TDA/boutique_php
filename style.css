@@ -9,19 +9,19 @@ h1 {
     text-align: center;
 }
 
-.hidden {
+/* .hidden {
     display: none;
-}
+} */
 
-input[value="Je commande"] {
+/* input[value="Je commande"] {
     display: none;
-}
+} */
 
-.submitParent:hover>input[value="Je commande"] {
+/* .submitParent:hover>input[value="Je commande"] {
     font-size: large;
-    display: block;
+    display: flex;                                                                                                        
     justify-content: center;
-}
+} */
 
 .bandeauVert {
     background-color: #1B893C;
@@ -33,6 +33,7 @@ input[value="Je commande"] {
 .backgroundImg {
     background-image: url("https://alpinemag.fr/wp-content/uploads/2022/11/jocelynchavy_charmeil_festival_ok-4847-2.jpg");
     opacity: 0.8;
+    margin : 0px 2em 2em 2em;
 }
 
 .formulaireBoutique {

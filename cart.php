@@ -13,33 +13,35 @@ echo $buffer;
 
 <?php
 include "my_functions.php";
-$products = ["EB", "Scarpa", "LaSportiva", "Simond"];
+include "database.php";
+// $productss = ["EB", "Scarpa", "LaSportiva", "Simond"];
 $somme = 0;
 $sumWeight = 0;
+
+$products = getProductName();
+// print_r($_SESSION);
 
 if (isset($_POST["emptyMyCart"])) {
     emptyMyCart();
 }
-
 
 ?>
 
 <div class="monPanier">
     <div class="listeProduits">
         <?php
-        if ($_SESSION["commandeScarpa"][1] == 0 && $_SESSION["commandeLaSportiva"][1] == 0 && $_SESSION["commandeSimond"][1] == 0 && $_SESSION["commandeEB"][1] == 0) {
-            echo "<h2>Votre panier est vide</>";
-        }
+        // if ($_SESSION["commandeScarpa"][1] == 0 && $_SESSION["commandeLaSportiva"][1] == 0 && $_SESSION["commandeSimond"][1] == 0 && $_SESSION["commandeEB"][1] == 0) {
+        //     echo "<h2>Votre panier est vide</>";
+        // }
         foreach ($products as $x) {
             if (isset($_POST["quantity$x"]) && (int) $_POST["quantity$x"] != 0) {
                 $nom = htmlspecialchars($_POST["nomCommande$x"]);
                 $qty = (int) $_POST["quantity$x"];
                 $prix = (float) htmlspecialchars($_POST["prixCommande$x"]);
                 $discount = (float) htmlspecialchars($_POST["discountCommande$x"]);
-                $img = htmlspecialchars($_POST["urlImg$x"]);
+                $img = htmlspecialchars($_POST["img_url$x"]);
                 $weight = (float) htmlspecialchars($_POST["weight$x"]);
-
-                if (isset($_POST['form_token']) && $_POST['form_token'] === $_SESSION['form_token']) {
+                    if (isset($_POST['form_token']) && $_POST['form_token'] === $_SESSION['form_token']) {
                     if (isset($_SESSION["commande$x"])&& isset($_SESSION['form_token'])) {
                         $_SESSION["commande$x"][1] += $qty;
                     } else {
@@ -50,8 +52,9 @@ if (isset($_POST["emptyMyCart"])) {
         }
 
         foreach ($products as $x) {
+
             if (!empty($_SESSION["commande" . $x])) {
-                ?>
+                     ?> 
                 <div class="monProduitPanier">
                     <h2><?php print_r($_SESSION["commande" . $x][0]); ?></h2>
                     <img src="<?php print_r($_SESSION["commande" . $x][4]); ?>" alt="Photo" width="50px">
