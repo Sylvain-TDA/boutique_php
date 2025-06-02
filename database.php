@@ -1,8 +1,11 @@
-<?php function connection($user, $password): PDO
+<?php
+
+
+function connection($user, $password): PDO
 {
     try {
         // On se connecte à MySQL
-        $mysqlClient = new PDO('mysql:host=localhost;dbname=store;charset=utf8', "$user", "$password");
+        $mysqlClient = new PDO('mysql:host=127.0.0.1;dbname=store;charset=utf8', "$user", "$password");
     } catch (Exception $e) {
         // En cas d'erreur, on affiche un message et on arrête tout
         die('Erreur : ' . $e->getMessage());
@@ -30,7 +33,8 @@ function getProductName(): array
     $name = [];
     foreach ($productsName as $key => $value) {
         array_push($name, $value["name"]);
-    } return $name;
+    }
+    return $name;
 }
 
 
@@ -106,18 +110,48 @@ function addingProduct($name, $price, $description, $weight, $url, $quantity, $a
     return $productAdded;
 }
 
-function placeOrder($total, $date, $weight)
+function placeOrder($total, $shipping_cost, $total_weight, $customer_id, $carrier_id)
 {
     $ordersQuery =
-        "INSERT INTO `orders` (`number`, `total`, `date`, `shipping cost`, `total_weight`, `customerid`, `carrier_id`, `status`)
-        VALUES ('4500014', :total , :date , 5, :weight , 1 , 1 , 'actif')";
+        "INSERT INTO `orders` (`total`, `shipping_cost`, `total_weight`, `customer_id`, `carrier_id`)
+        VALUES (:total, :shipping_cost, :total_weight, :customer_id, :carrier_id)";
 
     $queryConnection = connection("John", "John1")->prepare($ordersQuery);
-    $orderAdding = $queryConnection->execute([
+    $orderAdded = $queryConnection->execute([
         ':total' => $total,
-        ':date' => $date,
-        ':weight' => $weight
+        ':shipping_cost' => $shipping_cost,
+        ':total_weight' => $total_weight,
+        ':customer_id' => $customer_id,
+        ':carrier_id' => $carrier_id
     ]);
-    return $orderAdding;
+
+    //
+    $queryIdSelected = "SELECT MAX(id) FROM orders";
+    $queryConnection2 = connection("John", "John1")->prepare($queryIdSelected);
+    $queryConnection2->execute();
+    $idSelected = $queryConnection2->fetchAll();
+    placeOrerProduct(5, $total_weight, 1, $idSelected[0][0]);
+    //
+
+    return $orderAdded;
+
+}
+
+function placeOrerProduct($quantity, $total_weight, $product_id, $order_id)
+{
+    $ordersQuery =
+        "INSERT INTO `order_product` (`quantity`, `total_weight`, `product_id`, `order_id`)
+        VALUES (:quantity, :total_weight, :product_id, :order_id)";
+
+    $queryConnection = connection("John", "John1")->prepare($ordersQuery);
+    $orderAdded = $queryConnection->execute([
+        ':quantity' => $quantity,
+        ':total_weight' => $total_weight,
+        ':product_id' => $product_id,
+        ':order_id' => $order_id
+    ]);
+
+    return $orderAdded;
+
 }
 ?>
