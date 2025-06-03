@@ -21,9 +21,13 @@ $sumWeight = 0;
 $products = getProductName();
 $today = (new DateTime())->format("Y-m-d H:i:s");
 
+// echo    "<br>";
+// print_r($products);
+// echo    "<br>";
+// print_r($_POST);
 
 if (isset($_POST["emptyMyCart"])) {
-    emptyMyCart();
+     emptyMyCart();
 }
 ?>
 
@@ -33,54 +37,60 @@ if (isset($_POST["emptyMyCart"])) {
         // if ($_SESSION["commandeScarpa"][1] == 0 && $_SESSION["commandeLaSportiva"][1] == 0 && $_SESSION["commandeSimond"][1] == 0 && $_SESSION["commandeEB"][1] == 0) {
         //     echo "<h2>Votre panier est vide</>";
         // }
-        foreach ($products as $x) {
-            if (isset($_POST["quantity$x"]) && (int) $_POST["quantity$x"] != 0) {
-                $nom = htmlspecialchars($_POST["nomCommande$x"]);
-                $qty = (int) $_POST["quantity$x"];
-                $prix = (float) htmlspecialchars($_POST["prixCommande$x"]);
-                $discount = (float) htmlspecialchars($_POST["discountCommande$x"]);
-                $img = htmlspecialchars($_POST["img_url$x"]);
-                $weight = (float) htmlspecialchars($_POST["weight$x"]);
-                $product_id = htmlspecialchars($_POST["product_id$x"]);
+        foreach ($products as $product) {
+            $name = $product["name"];
+            $nameKey = str_replace(' ', '_', $name);
+            $quantityKey = "quantity" . $nameKey;
+            $nomCommandeKey = "nomCommande" . $nameKey;
+
+            if (isset($_POST[$quantityKey]) && (int) $_POST[$quantityKey] != 0) {
+                $nom = htmlspecialchars($_POST[$nomCommandeKey]);
+                $qty = (int) $_POST[$quantityKey];
+                $prix = (float) htmlspecialchars($_POST["prixCommande" . $nameKey]);
+                $discount = (float) htmlspecialchars($_POST["discountCommande" . $nameKey]);
+                $img = htmlspecialchars($_POST["img_url" . $nameKey]);
+                $weight = (float) htmlspecialchars($_POST["weight" . $nameKey]);
+                $product_id = htmlspecialchars($_POST["product_id" . $nameKey]);
                 if (isset($_POST['form_token']) && $_POST['form_token'] === $_SESSION['form_token']) {
-                    if (isset($_SESSION["commande$x"]) && isset($_SESSION['form_token'])) {
-                        $_SESSION["commande$x"][1] += $qty;
+                    if (isset($_SESSION["commande$nameKey"]) && isset($_SESSION['form_token'])) {
+                        $_SESSION["commande$nameKey"][1] += $qty;
                     } else {
-                        $_SESSION["commande$x"] = [$nom, $qty, $prix, $discount, $img, $weight, $product_id];
+                        $_SESSION["commande$nameKey"] = [$nom, $qty, $prix, $discount, $img, $weight, $product_id];
                     }
                 }
             }
         }
 
         foreach ($products as $x) {
-
-            if (!empty($_SESSION["commande" . $x])) {
+            $name = $x["name"];
+            $nameKey = str_replace(' ', '_', $name);
+            if (!empty($_SESSION["commande" . $nameKey])) {
                 ?>
                 <div class="monProduitPanier">
-                    <h2><?php print_r($_SESSION["commande" . $x][0]); ?></h2>
-                    <img src="<?php print_r($_SESSION["commande" . $x][4]); ?>" alt="Photo" width="50px">
+                    <h2><?php print_r($_SESSION["commande" . $nameKey][0]); ?></h2>
+                    <img src="<?php print_r($_SESSION["commande" . $nameKey][4]); ?>" alt="Photo" width="50px">
                     <p>Quantité :
                         <?php
-                        print_r($_SESSION["commande" . $x][1]);
+                        print_r($_SESSION["commande" . $nameKey][1]);
                         ;
                         ?>
-                        Product_id :
+                        <!-- Product_id :
                         <?php
-                        print_r($_SESSION["commande" . $x][6]);
-                        ?>
+                        print_r($_SESSION["commande" . $nameKey][6]);
+                        ?> -->
                     </p>
-                    <h3 class="reducedPrice">P.U : <?php $formatedPrice = ($_SESSION["commande" . $x][2]);
+                    <h3 class="reducedPrice">P.U : <?php $formatedPrice = ($_SESSION["commande" . $nameKey][2]);
                     echo formatPrice($formatedPrice); ?> </h3>
-                    <p class="solde">Solde : <?php print_r($_SESSION["commande" . $x][3]); ?> % </p>
+                    <p class="solde">Solde : <?php print_r($_SESSION["commande" . $nameKey][3]); ?> % </p>
                     <p>Poids :
                         <?php
-                        $poids = $_SESSION["commande" . $x][5] * $_SESSION["commande" . $x][1];
+                        $poids = $_SESSION["commande" . $nameKey][5] * $_SESSION["commande" . $nameKey][1];
                         echo $poids;
                         ?> gr
                     </p>
                     <p>Total HT avec solde:
                         <?php
-                        $montantHT = (discountedPrice($_SESSION["commande$x"][2], $_SESSION["commande$x"][3])) * $_SESSION["commande$x"][1];
+                        $montantHT = (discountedPrice($_SESSION["commande" .$nameKey][2], $_SESSION["commande". $nameKey][3])) * $_SESSION["commande". $nameKey][1];
                         echo (formatPrice($montantHT));
                         ?>
                     </p>
@@ -93,8 +103,8 @@ if (isset($_POST["emptyMyCart"])) {
                     <h2>Total TTC :
                         <?php
                         $montantTTC = $montantHT + $TVA;
-                        $_SESSION["commande" . $x][7] = $montantTTC;
-                        $_SESSION["commande" . $x][8] = $poids;
+                        $_SESSION["commande" . $nameKey][7] = $montantTTC;
+                        $_SESSION["commande" . $nameKey][8] = $poids;
                         echo $montantTTC . "€";
                         ?>
                     </h2>

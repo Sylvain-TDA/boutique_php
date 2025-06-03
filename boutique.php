@@ -28,7 +28,7 @@ $commandeDuJour = todayOrders();
 foreach ($commandeDuJour as $element) {
     ?>
     <div>
-        <p> Aujourd'hui, vous avez commandé pour : <?php echo $element["total"] . " €" ?> <br> </p>
+        <p> Aujourd'hui, le montant des commandes est de : <?php echo $element["total"] . " €" ?> <br> </p>
     </div>
 
     <?php
@@ -38,14 +38,15 @@ foreach ($commandeDuJour as $element) {
 
 <form method="GET">
     <input type="radio" id="shortage" name="radio" value="shortage">
-    <label for="shortage"> Produits en rupture</label><br>
+    <label for="shortage"> Exclure les produits en rupture</label><br>
     <input type="radio" id="everything" name="radio" value="everything">
     <label for="everything"> Tous les produits</label><br>
-    <button type="submit">Raffrachir</button>
+    <button type="submit">Rafraîchir</button>
 </form>
 
 
 <?php
+
 if ($_GET['radio'] == "shortage") {
     $products = changingProducts('shortage');
 } else {
@@ -63,6 +64,7 @@ if ($_GET['radio'] == "shortage") {
             <p> Prix HT : <?php echo formatPrice(priceExcludingVAT($element["price"])) ?> <br> </p>
             <p> Prix TTC : <?php echo formatPrice($element["price"]) ?> <br> </p>
             <img src="<?php echo $element["img_url"] ?>" alt="<?php echo $element["name"] ?>" width="300px">
+            <p>Quantité disponible = <?php echo getProductQuantityAvailable($element["id"]); ?> </p>
             <div class="submitParent">
                 <label for="quantity">Quantité</label>
                 <input type="hidden" name="form_token" value="<?php echo $_SESSION['form_token']; ?>">
@@ -76,9 +78,9 @@ if ($_GET['radio'] == "shortage") {
                     value="<?php echo (int) $element["discount"] ?>">
                 <input type="hidden" name="img_url<?php echo $element["name"] ?>" id="img_url"
                     value="<?php echo $element["img_url"] ?>">
+                
                 <input type="hidden" name="product_id<?php echo $element["name"] ?>" id="product_id"
                     value="<?php echo $element["id"] ?>">
-
                 <input type="number" name="quantity<?php echo $element["name"] ?>" id="quantity" min="0" max="5"
                     value="<?php echo (int) $quantity; ?>">
                 <input type="submit" value="Je commande">

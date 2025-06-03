@@ -16,20 +16,34 @@ include "my_functions.php";
 include "database.php";
 
 $products = listingOrders();
+
+
 ?>
 <form action="/cart.php" method="POST" class="formulaireBoutique">
-    <?php
+    <?php 
     foreach ($products as $element) {
+       
         ?>
         <div class="monProduit">
             <p> Commande n° <?php echo $element["number"] ?> <br> </p>
             <p> Montant de la commande <?php echo $element["total_commande"] . " €" ?> <br> </p>
-            </div>
+            <p>Order_id <?php echo $element["order_id"] ?></p>
+            <form method="GET">
+                <input type="submit" value="Supprimer ma commande" name="DeleteOrder">
+                <?php 
+                $orderToDelete = $element["order_id"];
+                if (isset($_GET["DeleteOrder"])) {
+                    deleteOrder($orderToDelete);
+                }
+                ?>
+            </form>
+        </div>
 
         <?php
     }
     ?>
 </form>
+
 
 <?php include "footer.php"; ?>
 
