@@ -15,7 +15,6 @@ function connection($user, $password): PDO
 
 function getTable($table, $user, $password): array
 {
-    // On récupère tout le contenu de la table recipes
     $sqlQuery = "SELECT * FROM $table";
     $productsName = connection("$user", "$password")->prepare($sqlQuery);
     $productsName->execute();
@@ -53,7 +52,6 @@ function changingProducts($choice)
         $products = getProductsShortage("products", "John", "John1");
     } else {
         $products = getTable("products", "John", "John1");
-
     }
     return $products;
 }
@@ -125,13 +123,15 @@ function placeOrder($total, $shipping_cost, $total_weight, $customer_id, $carrie
         ':carrier_id' => $carrier_id
     ]);
 
-    //
-    $queryIdSelected = "SELECT MAX(id) FROM orders";
-    $queryConnection2 = connection("John", "John1")->prepare($queryIdSelected);
-    $queryConnection2->execute();
-    $idSelected = $queryConnection2->fetchAll();
-    placeOrerProduct(5, $total_weight, 1, $idSelected[0][0]);
-    //
+    // //
+    // foreach ($commande as $element){
+    // $queryIdSelected = "SELECT MAX(id) FROM orders";
+    // $queryConnection2 = connection("John", "John1")->prepare($queryIdSelected);
+    // $queryConnection2->execute();
+    // $idSelected = $queryConnection2->fetchAll();
+    // placeOrerProduct($element["quantity"], $total_weight, $element["product_id"], $idSelected[0][0]);
+    // };
+    // //
 
     return $orderAdded;
 
