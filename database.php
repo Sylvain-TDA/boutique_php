@@ -1,7 +1,7 @@
 <?php
 
 
-function connection($user, $password): PDO
+function connection($user = "John", $password = "John1"): PDO
 {
     static $pdo = null;
 
@@ -17,19 +17,18 @@ function connection($user, $password): PDO
     return $mysqlClient;
 }
 
-
-function getTable($table, $user, $password): array
+function getTable(string $query, array $params = []): array
 {
-    $sqlQuery = "SELECT * FROM `$table`";
-    $productsName = connection($user, $password)->prepare($sqlQuery);
-    $productsName->execute();
-    $table1 = $productsName->fetchAll(PDO::FETCH_ASSOC);
-    return $table1;
+    // $sqlQuery = "SELECT * FROM `$table`";
+    $pdo = connection();
+    $stmt = $pdo->prepare($query);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getProductName(): array
 {
-    $pdo = connection("John", "John1");
+    $pdo = connection();
     $sqlQuery = "SELECT name FROM products";
     $stmt = $pdo->prepare($sqlQuery); // stmt stand for statement
     $stmt->execute();
@@ -51,7 +50,7 @@ function changingProducts($choice)
     if ($choice == "shortage") {
         $products = excludeProductsShortage("products", "John", "John1");
     } else {
-        $products = getTable("products", "John", "John1");
+        $products = getTable("SELECT * FROM products", );
     }
     return $products;
 }
@@ -92,7 +91,7 @@ function addingProduct($name, $price, $description, $weight, $url, $quantity, $a
         VALUES (:name, :price, :description, :weight, :url, :quantity, :availability, :categories_id, :discount)";
 
     $queryConnection = connection("John", "John1")->prepare($sqlQuery);
-    
+
     return $queryConnection->execute([
         ':name' => $name,
         ':price' => $price,
@@ -147,13 +146,12 @@ function placeOrerProduct($quantity, $total_weight, $product_id, $order_id)
         VALUES (:quantity, :total_weight, :product_id, :order_id)";
 
     $queryConnection = connection("John", "John1")->prepare($ordersQuery);
-    $orderAdded = $queryConnection->execute([
+    return $queryConnection->execute([
         ':quantity' => $quantity,
         ':total_weight' => $total_weight,
         ':product_id' => $product_id,
         ':order_id' => $order_id
     ]);
-    return $orderAdded;
 }
 
 function getProductQuantityAvailable($product_id)
