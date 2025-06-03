@@ -76,6 +76,8 @@ if ($_GET['radio'] == "shortage") {
                     value="<?php echo (int) $element["discount"] ?>">
                 <input type="hidden" name="img_url<?php echo $element["name"] ?>" id="img_url"
                     value="<?php echo $element["img_url"] ?>">
+                <input type="hidden" name="product_id<?php echo $element["name"] ?>" id="product_id"
+                    value="<?php echo $element["id"] ?>">
 
                 <input type="number" name="quantity<?php echo $element["name"] ?>" id="quantity" min="0" max="5"
                     value="<?php echo (int) $quantity; ?>">

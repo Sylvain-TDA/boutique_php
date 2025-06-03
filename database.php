@@ -108,14 +108,15 @@ function addingProduct($name, $price, $description, $weight, $url, $quantity, $a
     return $productAdded;
 }
 
-function placeOrder($total, $shipping_cost, $total_weight, $customer_id, $carrier_id)
+function placeOrder($total, $shipping_cost, $total_weight, $customer_id, $carrier_id, $commande)
 {
     $ordersQuery =
         "INSERT INTO `orders` (`total`, `shipping_cost`, `total_weight`, `customer_id`, `carrier_id`)
         VALUES (:total, :shipping_cost, :total_weight, :customer_id, :carrier_id)";
 
-    $queryConnection = connection("John", "John1")->prepare($ordersQuery);
-    $orderAdded = $queryConnection->execute([
+    $queryConnection = connection("John", "John1");
+    $placeOrders = $queryConnection->prepare($ordersQuery);
+    $placeOrders->execute([
         ':total' => $total,
         ':shipping_cost' => $shipping_cost,
         ':total_weight' => $total_weight,
@@ -123,17 +124,25 @@ function placeOrder($total, $shipping_cost, $total_weight, $customer_id, $carrie
         ':carrier_id' => $carrier_id
     ]);
 
-    // //
-    // foreach ($commande as $element){
-    // $queryIdSelected = "SELECT MAX(id) FROM orders";
-    // $queryConnection2 = connection("John", "John1")->prepare($queryIdSelected);
-    // $queryConnection2->execute();
-    // $idSelected = $queryConnection2->fetchAll();
-    // placeOrerProduct($element["quantity"], $total_weight, $element["product_id"], $idSelected[0][0]);
-    // };
-    // //
+    //
+    $queryIdSelected = "SELECT MAX(id) FROM orders";
+    $placeOrdersProducts = $queryConnection->prepare($queryIdSelected);
+    $placeOrdersProducts->execute();
+    $idSelected = $placeOrdersProducts->fetchAll();
+    $idCommande = $idSelected[0][0];
 
-    return $orderAdded;
+    foreach ($commande as $key => $element) {
+        if (strpos($key, "commande") === 0 && is_array($element)) {
+            $productId = $element[6];
+            $quantity = $element[1];
+            $total_weight = $element[2];
+            echo "Produit ID : $productId, Quantité : $quantity<br>";
+            placeOrerProduct($quantity, $total_weight, $productId, $idCommande);
+        }
+    }
+    ;
+    //
+
 
 }
 

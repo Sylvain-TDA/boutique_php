@@ -41,8 +41,7 @@ if (isset($_POST["emptyMyCart"])) {
                 $discount = (float) htmlspecialchars($_POST["discountCommande$x"]);
                 $img = htmlspecialchars($_POST["img_url$x"]);
                 $weight = (float) htmlspecialchars($_POST["weight$x"]);
-                $product_id = $_POST["product_id$x"];
-                print_r($product_id);
+                $product_id = htmlspecialchars($_POST["product_id$x"]);
                 if (isset($_POST['form_token']) && $_POST['form_token'] === $_SESSION['form_token']) {
                     if (isset($_SESSION["commande$x"]) && isset($_SESSION['form_token'])) {
                         $_SESSION["commande$x"][1] += $qty;
@@ -65,10 +64,10 @@ if (isset($_POST["emptyMyCart"])) {
                         print_r($_SESSION["commande" . $x][1]);
                         ;
                         ?>
-                        <!-- Product_id :
+                        Product_id :
                         <?php
-                        print_r($_SESSION);
-                        ?> -->
+                        print_r($_SESSION["commande" . $x][6]);
+                        ?>
                     </p>
                     <h3 class="reducedPrice">P.U : <?php $formatedPrice = ($_SESSION["commande" . $x][2]);
                     echo formatPrice($formatedPrice); ?> </h3>
@@ -94,8 +93,8 @@ if (isset($_POST["emptyMyCart"])) {
                     <h2>Total TTC :
                         <?php
                         $montantTTC = $montantHT + $TVA;
-                        $_SESSION["commande" . $x][6] = $montantTTC;
-                        $_SESSION["commande" . $x][7] = $poids;
+                        $_SESSION["commande" . $x][7] = $montantTTC;
+                        $_SESSION["commande" . $x][8] = $poids;
                         echo $montantTTC . "€";
                         ?>
                     </h2>
@@ -121,9 +120,9 @@ if (isset($_POST["emptyMyCart"])) {
         </form>
         <p><?php
         foreach ($products as $element) {
-            if (isset($_SESSION["commande" . $element[1]][6])) {
-                $sumWeight += $_SESSION["commande" . $element][6];
-                $somme += $_SESSION["" . $element][7];
+            if (isset($_SESSION["commande" . $element[1]][7])) {
+                $sumWeight += $_SESSION["commande" . $element][7];
+                $somme += $_SESSION["" . $element][8];
             }
         }
 
@@ -153,9 +152,8 @@ if (isset($_POST["emptyMyCart"])) {
 
 <?php
 
-
 if ($_POST['commander'] == "Commander") {
-    placeOrder($somme, $_SESSION['shipping_cost'], $sumWeight, 1, 1, );
+    placeOrder($somme, $_SESSION['shipping_cost'], $sumWeight, 1, 1, $_SESSION);
 }
 
 include "footer.php";
